@@ -19,24 +19,26 @@ const getTodo = async () => {
 };
 
 export default async function TodoList() {
-  const { todo } = await getTodo();
+  const { todo } = (await getTodo()) || [];
   return (
     <>
-      {todo.map((t) => (
-        // eslint-disable-next-line react/jsx-key
-        <div className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start">
-          <div>
-            <h1 className="font-bold text-5xl">{t.title}</h1>
-            <div>{t.description}</div>
-          </div>
-          <div className="flex gap-2">
-            <Removebtn id={t._id} />
-            <Link href={`/editTodo/${t._id}`}>
-              <HiPencilAlt size={24} />
-            </Link>
-          </div>
-        </div>
-      ))}
+      {todo
+        ? todo.map((t) => (
+            // eslint-disable-next-line react/jsx-key
+            <div className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start">
+              <div>
+                <h1 className="font-bold text-5xl">{t.title}</h1>
+                <div>{t.description}</div>
+              </div>
+              <div className="flex gap-2">
+                <Removebtn id={t._id} />
+                <Link href={`/editTodo/${t._id}`}>
+                  <HiPencilAlt size={24} />
+                </Link>
+              </div>
+            </div>
+          ))
+        : []}
     </>
   );
 }
