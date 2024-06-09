@@ -2,7 +2,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+require("dotenv");
 export default function page() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -14,7 +14,7 @@ export default function page() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:3000/api/todo", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN}/api/todo`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

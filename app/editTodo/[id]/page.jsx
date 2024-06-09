@@ -2,9 +2,12 @@ import EditTodoForm from "@/components/EditTodoForm";
 
 const getById = async (id) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/todo/${id}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) {
       throw new Error("Failed to fetch topics");
     }

@@ -1,4 +1,5 @@
 "use client";
+require("dotenv");
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -9,15 +10,19 @@ export default function EditTodoForm({ id, title, description }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:3000/api/todo/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ newTitle, newDescription }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_DOMAIN}/api/todo/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ newTitle, newDescription }),
+        }
+      );
       if (res.ok) {
         router.push("/");
+        router.refresh();
       } else {
         throw new Error(res.body);
       }
